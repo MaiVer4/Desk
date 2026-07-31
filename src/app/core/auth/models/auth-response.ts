@@ -2,7 +2,7 @@ import { User } from "./user";
 
 export interface AuthResponse {
     accessToken: string,
-    refreshToke: string,
+    refreshToken: string,
     user: User,
 
 }
