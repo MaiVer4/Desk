@@ -22,6 +22,11 @@ export class Auth {
 
   register(credentials: RegisterRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.API_URL}/auth/register`, credentials)
+    .pipe(
+      tap((response) =>{
+        this.saveSession(response)
+      })
+    );
   }
 
   private currentUser$ = new BehaviorSubject<User | null>(null)
