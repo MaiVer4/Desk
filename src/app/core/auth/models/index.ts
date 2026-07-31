@@ -1,4 +1,4 @@
-export { User } from './user';
-export { AuthResponse } from './auth-response';
-export { LoginRequest } from './login-request';
-export { RegisterRequest } from './register-request';
+export type { User } from './user';
+export type { AuthResponse } from './auth-response';
+export type { LoginRequest } from './login-request';
+export type { RegisterRequest } from './register-request';
