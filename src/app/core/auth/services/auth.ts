@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { AuthResponse, LoginRequest, RegisterRequest, User } from '../models';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,12 @@ export class Auth {
   private API_URL = environment.API_URL;
 
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/auth/login`, credentials);
+    return this.http.post<AuthResponse>(`${this.API_URL}/auth/login`, credentials)
+    .pipe(
+      tap((response) =>{
+        this.saveSession(response)
+      })
+    );
   }
 
   register(credentials: RegisterRequest): Observable<AuthResponse> {
