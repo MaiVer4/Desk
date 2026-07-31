@@ -36,4 +36,10 @@ export class Auth {
     localStorage.setItem('refreshToken', response.refreshToken)
     this.currentUser$.next(response.user)
   }
+
+  private clearSession(): void {
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    this.currentUser$.next(null)
+  }
 }
