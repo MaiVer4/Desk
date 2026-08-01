@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { AuthResponse, LoginRequest, RegisterRequest, User } from '../models';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, BehaviorSubject, tap, finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +41,15 @@ export class Auth {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     this.currentUser$.next(null)
+  }
+
+  logout(): Observable<any> {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    return this.http.post(`${this.API_URL}/auth/logout`, { refreshToken}).pipe(
+      finalize(() => {
+        this.clearSession()
+      })
+    );
   }
 }
