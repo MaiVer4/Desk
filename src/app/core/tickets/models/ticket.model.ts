@@ -10,3 +10,9 @@ export interface Ticket {
     priority: TicketPriority,
     createdAt: string
 }
+
+export interface CreateTicketRequest {
+    title: string,
+    description: string,
+    priority: TicketPriority
+}
