@@ -22,4 +22,8 @@ export class TicketService {
   getTicketById(id: string): Observable<Ticket> {
     return this.http.get<Ticket>(`${this.API_URL}/tickets/${id}`)
   }
+
+  updateTicket(id: string, changes: Partial<Ticket>): Observable<Ticket> {
+    return this.http.patch<Ticket>(`${this.API_URL}/tickets/${id}`, changes)
+  }
 }
